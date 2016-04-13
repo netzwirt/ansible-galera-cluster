@@ -1,0 +1,26 @@
+---
+galaxy_info:
+  author: 'Reto Gassmann'
+  description: 'Install MariaDB galera-cluster'
+  license: BSD
+  min_ansible_version: '1.8'
+
+  platforms:
+  - name: Ubuntu
+    versions:
+    - trusty
+  - name: Debian
+    versions:
+    - jessie
+
+  categories:
+  - mysql
+  - clustering
+  - database
+  - mariadb
+  - galera
+    
+dependencies: []
+  
+allow_duplicates: yes 
+
