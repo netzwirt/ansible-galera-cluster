@@ -94,6 +94,7 @@
     mysql -p{{ galera_root_password }} -uroot -e "USE mysql; INSERT IGNORE INTO user (Host,User) values ('{{ item }}','haproxy'); FLUSH PRIVILEGES;" 
   when: galera_manage_users and galera_haproxy_user
   with_items: "{{ galera_haproxy_hosts }}"
+  changed_when: False
   
   
 - name: galera configuration file
