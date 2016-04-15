@@ -23,12 +23,12 @@ galera_password_lookup_dir: "{{ inventory_dir }}/storage/netzwirt.galera-cluster
 
 # monitor cluster via http
 # @see https://github.com/olafz/percona-clustercheck
-galera_check_scripts: True
+galera_check_scripts: False
 galera_check_scripts_port: 9200
 
 
 # checkuser for haproxy
-galera_haproxy_user: True
+galera_haproxy_user: False
 galera_haproxy_hosts: 
 - 127.0.0.1
 
