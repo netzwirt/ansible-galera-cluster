@@ -71,8 +71,8 @@
     state: present 
     priv: "*.*:ALL"
   when: galera_manage_users and galera_bootstrap
-
-
+ 
+  
 - name: set clustercheck password
   mysql_user: 
     name: clustercheck
@@ -92,7 +92,17 @@
   with_items: "{{ galera_haproxy_hosts }}"
   changed_when: False
   
+
+- name: debian configuration file
+  template: 
+    src: debian.cnf.j2 
+    dest: /etc/mysql/debian.cnf 
+    owner: root 
+    group: root 
+    mode: 0644
+  notify: restart mysql 
   
+    
 - name: galera configuration file
   template: 
     src: cluster.cnf.j2 
@@ -112,15 +122,6 @@
     mode: 0644
   notify: restart mysql 
 
-
-- name: debian configuration file
-  template: 
-    src: debian.cnf.j2 
-    dest: /etc/mysql/debian.cnf 
-    owner: root 
-    group: root 
-    mode: 0644
-  notify: restart mysql 
   
 # percona xtradb scripts
 # and services
