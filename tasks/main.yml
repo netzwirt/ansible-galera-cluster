@@ -174,6 +174,7 @@
     name: mysql
     state: stopped
   when: galera_node_bootstrapped.stat.exists == False
+  failed_when: False
 
    
 - name: bootstrap new cluster master
