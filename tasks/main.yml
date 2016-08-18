@@ -166,7 +166,36 @@
   when: galera_check_scripts
   notify: restart xinetd 
 
-            
+
+# percona nagios plugins
+- name: download nagios plugins
+  get_url: 
+    url: "{{ galera_nagios_plugins_src }}"
+    dest: /tmp/
+  register: _percona_nagios_download
+  when: galera_nagios_plugins_version != False
+  tags:
+  - nagios-plugins
+
+
+- name: create folder for plugins
+  file:
+    state: directory
+    path: "/usr/lib/nagios/percona-plugins/"
+  when: galera_nagios_plugins_version != False
+  tags:
+  - nagios-plugins
+  
+- name: unarchive downloaded plugins
+  unarchive: 
+    src: "{{ _percona_nagios_download.dest }}"
+    dest: "/usr/lib/nagios/percona-plugins/"
+    copy: no
+  when: galera_nagios_plugins_version != False
+  tags:
+  - nagios-plugins
+
+
 # To bootstrap a new cluster you need to start the first 
 # mysqld server with the option --wsrep-new-cluster on the command line 
 - name: stop servers if not bootstrapped

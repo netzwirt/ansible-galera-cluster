@@ -15,6 +15,13 @@ galera_manage_users: True
 
 #galera_grant_hosts: []
 
+# donwload plugins for nagios/icinga?
+galera_nagios_plugins_version: False
+# @see https://www.percona.com/downloads/percona-monitoring-plugins/
+# for versions and set variable to version
+# galera_nagios_plugins_version: 1.1.6 for example
+
+
 
 # THIS PATH MUST EXIST in some versions of ansible TO AVOID RACE CONDITIONS !!! 
 # @see https://github.com/ansible/ansible/issues/10784
