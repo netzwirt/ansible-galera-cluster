@@ -56,7 +56,7 @@ Run playbook with:
 
 	--tags=nagios-plugins --extra-vars="{galera_nagios_plugins_version: '1.1.6'}"
 
-Plugins will be installed in /usr/lib/nagios/percona-plugins/
+Plugins will be installed in /usr/lib/nagios/percona-plugins/ and copied to 
 
 
 #Dependencies
