@@ -17,8 +17,8 @@
   stat: 
     path: /etc/mysql/galera_node_bootstrapped
   register: galera_node_bootstrapped
-
-
+  
+  
 - name: preseed galera root password
   shell: echo "{{ galera_server_package }} mysql-server/root_password password {{ galera_root_password }}" | debconf-set-selections ;
          echo "{{ galera_server_package }} mysql-server/root_password_again password {{ galera_root_password }}" | debconf-set-selections
@@ -38,7 +38,7 @@
     - rsync
     - python-mysqldb
 
-
+  
 - name: generate client config
   template: 
     src: my.cnf-root.j2
@@ -46,19 +46,8 @@
     owner: root 
     group: root
     mode: 0400
-
-
-- name: set mysql root password
-  mysql_user: 
-    name: root
-    password: "{{ galera_root_password }}"
-    host: "{{ item }}"
-    state: present
-    priv: "*.*:ALL,GRANT"
-  with_items:
-  - localhost
-  - "{{ galera_haproxy_hosts }}"
-  when: galera_manage_users and galera_bootstrap
+  tags:
+  - root-cnf
 
 
 - name: set debian-sys-maint password
@@ -66,8 +55,6 @@
     name: debian-sys-maint 
     password: "{{ galera_sys_maint_password }}"
     host: localhost
-    login_user: root
-    login_password: "{{ galera_root_password }}"
     state: present 
     priv: "*.*:ALL"
   when: galera_manage_users and galera_bootstrap
@@ -78,8 +65,6 @@
     name: clustercheck
     password: "{{ galera_clustercheck_password }}"
     host: localhost
-    login_user: root
-    login_password: "{{ galera_root_password }}"
     state: present 
     priv: "*.*:PROCESS"
   when: galera_manage_users and galera_bootstrap
@@ -227,7 +212,7 @@
     dest: /etc/nagios-plugins/mysql.cnf
     owner: root 
     group: root
-    mode: 0400
+    mode: 0444
   tags:
   - nagios-plugins
   
