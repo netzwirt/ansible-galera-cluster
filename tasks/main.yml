@@ -198,19 +198,39 @@
   - nagios-plugins
 
 
-- name: lookup default nagios plugins folder
-  stat:
+- name: create /usr/lib/nagios/plugins/
+  file:
     path: "/usr/lib/nagios/plugins/"
-  register: _nagios_plugin_folder
+    state: directory
   tags:
   - nagios-plugins
 
+
 - name: copy plugins to default location
   shell: "cp -ar /usr/lib/nagios/percona-plugins/percona-monitoring-plugins-{{ galera_nagios_plugins_version }}/nagios/bin/* /usr/lib/nagios/plugins/"
-  when: galera_nagios_plugins_version != False and _percona_nagios_unarchive.changed and _nagios_plugin_folder.stat.exists
+  when: galera_nagios_plugins_version != False and _percona_nagios_unarchive.changed
   tags:
   - nagios-plugins  
 
+
+- name: create /etc/nagios-plugins
+  file:
+    path: "/etc/nagios-plugins"
+    state: directory
+  tags:
+  - nagios-plugins
+
+
+- name: generate nagios config
+  template: 
+    src: my.cnf-nagios.j2
+    dest: /etc/nagios-plugins/mysql.cnf
+    owner: root 
+    group: root
+    mode: 0400
+  tags:
+  - nagios-plugins
+  
 
 # To bootstrap a new cluster you need to start the first 
 # mysqld server with the option --wsrep-new-cluster on the command line 
