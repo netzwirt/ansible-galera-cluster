@@ -1,14 +1,22 @@
 ---
 
-- name: repository key
+- name: repository key on xenial
   apt_key: 
     keyserver: keyserver.ubuntu.com 
+    id: "0xF1656F24C74CD1D8"
+  when: "{{ ansible_distribution_release == 'xenial' }}"
+
+
+- name: repository key on trusty
+  apt_key: 
+    keyserver: keyserver.ubuntu.com
     id: "0xcbcb082a1bb943db"
+  when: "{{ ansible_distribution_release == 'trusty' }}"
 
 
 - name: add apt repository
   apt_repository: 
-    repo: "deb http://ftp.heanet.ie/mirrors/mariadb/repo/{{ galera_server_version }}/ubuntu {{ ansible_distribution_release }} main" 
+    repo: "deb http://mirror2.hs-esslingen.de/mariadb/repo/{{ galera_server_version }}/ubuntu {{ ansible_distribution_release }} main" 
     state: present 
     update_cache: yes
 
