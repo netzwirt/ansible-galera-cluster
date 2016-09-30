@@ -8,7 +8,7 @@
 
 - name: add apt repository
   apt_repository: 
-    repo: "deb http://ftp.heanet.ie/mirrors/mariadb/repo/10.1/ubuntu {{ ansible_distribution_release }} main" 
+    repo: "deb http://ftp.heanet.ie/mirrors/mariadb/repo/{{ galera_server_version }}/ubuntu {{ ansible_distribution_release }} main" 
     state: present 
     update_cache: yes
 

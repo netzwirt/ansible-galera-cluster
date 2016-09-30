@@ -5,3 +5,6 @@ galera_sys_maint_password: "{{ lookup('password', galera_password_lookup_dir + '
 galera_clustercheck_password: "{{ lookup('password', galera_password_lookup_dir + '/clustercheck_pw length=25') }}"
 
 galera_nagios_plugins_src: "https://www.percona.com/downloads/percona-monitoring-plugins/{{ galera_nagios_plugins_version }}/percona-monitoring-plugins-{{ galera_nagios_plugins_version }}.tar.gz"
+
+
+galera_server_package: "mariadb-server-{{ galera_server_version }}"

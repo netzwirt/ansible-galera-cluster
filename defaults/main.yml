@@ -1,7 +1,7 @@
 ---
 # defaults for netzwirt.galera-cluster
 
-galera_server_package: mariadb-server-10.1
+galera_server_version: 10.1
 
 galera_cluster_name: galera
 
