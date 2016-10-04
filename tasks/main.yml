@@ -236,8 +236,7 @@
 
    
 - name: bootstrap new cluster master
-  shell: mysqld --wsrep-new-cluster &
-         sleep 3
+  command: /etc/init.d/mysql bootstrap
   when: galera_bootstrap and galera_node_bootstrapped.stat.exists == False
 
 
