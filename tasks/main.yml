@@ -7,16 +7,17 @@
   when: "{{ ansible_distribution_release == 'xenial' }}"
 
 
-- name: repository key on trusty
+- name: repository key on trusty and debian
   apt_key: 
     keyserver: keyserver.ubuntu.com
     id: "0xcbcb082a1bb943db"
-  when: "{{ ansible_distribution_release == 'trusty' }}"
+  when: "{{ ansible_distribution_release == 'trusty' or ansible_distribution == 'Debian' }}"
 
 
 - name: add apt repository
   apt_repository: 
-    repo: "deb http://mirror2.hs-esslingen.de/mariadb/repo/{{ galera_server_version }}/ubuntu {{ ansible_distribution_release }} main" 
+    repo: "deb http://mirror2.hs-esslingen.de/mariadb/repo/{{ galera_server_version }}/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} main" 
+    filename: mariadb-galera-cluster
     state: present 
     update_cache: yes
 
