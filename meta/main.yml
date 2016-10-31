@@ -10,6 +10,9 @@ galaxy_info:
     versions:
     - trusty
     - xenial
+  - name: Debian
+    versions:
+    - jessie
 
   categories:
   - mysql
