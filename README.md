@@ -24,6 +24,7 @@ Set the path for the storage with `galera_password_lookup_dir`
 
 `galera_manage_users`: True
 
+It is mandatory, that you keep the galera_cluster_name the same as your group_var name, otherwise you will get errors.
 
 ##Host vars
 
