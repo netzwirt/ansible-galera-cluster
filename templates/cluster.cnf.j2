@@ -14,9 +14,6 @@ wsrep_sst_method = rsync
 wsrep_node_name = "{{ inventory_hostname }}"
 
 
-{% if galera_bootstrap %}
-wsrep_cluster_address = gcomm://
-{% else %}
 wsrep_cluster_address = gcomm://{%- for host in groups[galera_cluster_name] -%}
 {%- if hostvars[host]['galera_node_ip'] is defined -%}
 {{ hostvars[host]['galera_node_ip']|trim }}
@@ -25,7 +22,6 @@ wsrep_cluster_address = gcomm://{%- for host in groups[galera_cluster_name] -%}
 {%- endif -%}
 {%- if not loop.last  -%},{%- endif -%}
 {%- endfor -%}
-{% endif %}
 
 wsrep_node_address = {% if hostvars[inventory_hostname]['galera_node_ip'] is defined -%}
 {{ hostvars[inventory_hostname]['galera_node_ip'] }}
