@@ -22,6 +22,7 @@ wsrep_cluster_address = gcomm://{%- for host in groups[galera_cluster_name] -%}
 {%- endif -%}
 {%- if not loop.last  -%},{%- endif -%}
 {%- endfor %}
+
 # node address
 wsrep_node_address = {% if hostvars[inventory_hostname]['galera_node_ip'] is defined -%}
 {{ hostvars[inventory_hostname]['galera_node_ip'] }}
