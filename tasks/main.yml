@@ -24,7 +24,7 @@
 
 - name: check bootstrapped
   stat: 
-    path: /etc/mysql/_galera_node_bootstrapped
+    path: /etc/mysql/galera_node_bootstrapped
   register: _galera_node_bootstrapped
   
   
@@ -257,7 +257,7 @@
 
 - name: create bootstrap file
   file: 
-    path: /etc/mysql/_galera_node_bootstrapped
+    path: /etc/mysql/galera_node_bootstrapped
     state: touch
   when: _galera_node_bootstrapped.stat.exists == False
  
