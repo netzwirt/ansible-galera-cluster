@@ -261,4 +261,16 @@
     state: touch
   when: galera_node_bootstrapped.stat.exists == False
  
-  
+
+# Add Timezone Support To MySQL
+- name: check timezone support
+  stat: 
+    path: /etc/mysql/_galera_tzinfo_loaded
+  register: _galera_tzinfo_loaded
+
+
+- name: add timezone support to mysql
+  shell: "mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql mysql && touch /etc/mysql/_galera_tzinfo_loaded"
+  notify:
+    - restart mysql
+  when: galera_set_timezone_info is defined and galera_set_timezone_info and _galera_tzinfo_loaded.stat.exists == False and galera_bootstrap

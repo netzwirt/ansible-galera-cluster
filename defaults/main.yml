@@ -13,6 +13,8 @@ galera_bind_address: 0.0.0.0
 
 galera_manage_users: True
 
+galera_set_timezone_info: False
+
 #galera_grant_hosts: []
 
 # donwload plugins for nagios/icinga?
