@@ -24,15 +24,15 @@
 
 - name: check bootstrapped
   stat: 
-    path: /etc/mysql/galera_node_bootstrapped
-  register: galera_node_bootstrapped
+    path: /etc/mysql/_galera_node_bootstrapped
+  register: _galera_node_bootstrapped
   
   
 - name: preseed galera root password
   shell: echo "{{ galera_server_package }} mysql-server/root_password password {{ galera_root_password }}" | debconf-set-selections ;
          echo "{{ galera_server_package }} mysql-server/root_password_again password {{ galera_root_password }}" | debconf-set-selections
     executable=/bin/bash
-  when: galera_node_bootstrapped.stat.exists == False
+  when: _galera_node_bootstrapped.stat.exists == False
 
 
 - name: install required packages
@@ -232,34 +232,34 @@
   service:
     name: mysql
     state: stopped
-  when: galera_node_bootstrapped.stat.exists == False
+  when: _galera_node_bootstrapped.stat.exists == False
   failed_when: False
 
    
 - name: bootstrap new cluster master
   command: /etc/init.d/mysql bootstrap
-  when: galera_bootstrap and galera_node_bootstrapped.stat.exists == False
+  when: galera_bootstrap and _galera_node_bootstrapped.stat.exists == False
 
 
 - name: restart new cluster master
   service:
     name: mysql
     state: restarted
-  when: galera_bootstrap and galera_node_bootstrapped.stat.exists == False
+  when: galera_bootstrap and _galera_node_bootstrapped.stat.exists == False
 
 
 - name: restart new added nodes
   service:
     name: mysql
     state: restarted
-  when: not galera_bootstrap and galera_node_bootstrapped.stat.exists == False 
+  when: not galera_bootstrap and _galera_node_bootstrapped.stat.exists == False 
 
 
 - name: create bootstrap file
   file: 
-    path: /etc/mysql/galera_node_bootstrapped
+    path: /etc/mysql/_galera_node_bootstrapped
     state: touch
-  when: galera_node_bootstrapped.stat.exists == False
+  when: _galera_node_bootstrapped.stat.exists == False
  
 
 # Add Timezone Support To MySQL
