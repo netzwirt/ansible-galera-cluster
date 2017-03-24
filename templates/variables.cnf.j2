@@ -1,0 +1,8 @@
+#
+# {{ ansible_managed }}
+#
+
+[mariadb]
+{% for conf in galera_variables %}
+{{ conf }}
+{% endfor %}

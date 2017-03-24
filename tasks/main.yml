@@ -116,7 +116,17 @@
     mode: 0644
   notify: restart mysql 
 
-  
+
+- name: additional variables
+  template: 
+    src: variables.cnf.j2
+    dest: /etc/mysql/conf.d/variables.cnf
+    owner: root 
+    group: root 
+    mode: 0644
+  notify: restart mysql 
+
+
 # percona xtradb scripts
 # and services
 - name: install xinetd
