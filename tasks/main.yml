@@ -4,14 +4,14 @@
   apt_key: 
     keyserver: keyserver.ubuntu.com 
     id: "0xF1656F24C74CD1D8"
-  when: "{{ ansible_distribution_release == 'xenial' }}"
+  when: ansible_distribution_release == 'xenial'
 
 
 - name: repository key on trusty and debian
   apt_key: 
     keyserver: keyserver.ubuntu.com
     id: "0xcbcb082a1bb943db"
-  when: "{{ ansible_distribution_release == 'trusty' or ansible_distribution == 'Debian' }}"
+  when: ansible_distribution_release == 'trusty' or ansible_distribution == 'Debian'
 
 
 - name: add apt repository
