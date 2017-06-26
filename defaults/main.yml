@@ -18,9 +18,9 @@ galera_set_timezone_info: False
 # list with config lines -> written to /etc/mysql/conf.d/variables.cnf 
 galera_variables: []
 # EXAMPLE
-#- "innodb_log_file_size = 384M"
-#- "innodb_buffer_pool_size = 1536M"
-#- "character_set_server = utf8"
+#- innodb_log_file_size = 384M
+#- innodb_buffer_pool_size = 1536M
+#- character_set_server = utf8
 
 #galera_grant_hosts: []
 

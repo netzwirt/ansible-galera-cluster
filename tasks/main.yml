@@ -117,17 +117,28 @@
   notify: restart mysql 
 
 
-- name: additional variables
+- name: set additional variables
+  mysql_variables:
+    login_user: root
+    login_password: "{{ galera_root_password }}" 
+    variable: "{{ item.split('=')[0]|trim }}"
+    value: "{{ item.split('=')[1]|trim }}"
+  tags:
+  - variables
+  with_items: "{{ galera_variables }}"
+  when: not 'innodb_' in item
+  
+  
+- name: persist additional variables
   template: 
     src: variables.cnf.j2
     dest: /etc/mysql/conf.d/variables.cnf
     owner: root 
     group: root 
     mode: 0644
-  notify: restart mysql
   tags:
   - variables
-
+  
 
 # percona xtradb scripts
 # and services
