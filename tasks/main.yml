@@ -124,7 +124,9 @@
     owner: root 
     group: root 
     mode: 0644
-  notify: restart mysql 
+  notify: restart mysql
+  tags:
+  - variables
 
 
 # percona xtradb scripts
@@ -180,6 +182,7 @@
   when: galera_nagios_plugins_version != False
   tags:
   - nagios-plugins
+  check_mode: no
 
 
 - name: create folder for plugins
